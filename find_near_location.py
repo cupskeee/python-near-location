@@ -1,40 +1,62 @@
+import csv
 import json
+from math import radians, cos, sin, asin, sqrt
 
 from config import *
-from math import radians, cos, sin, asin, sqrt
 from data import location_data
 
 
-def nearloc_from_variable(current_latitude, current_longitude):
+def harversine(current_long, current_lat, location):
+    lon1, lat1, lon2, lat2 = map(radians, [current_long, current_lat, float(location["long"]), float(location["lat"])])
+
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
+    a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
+    c = 2 * asin(sqrt(a))
+    if RESULT_MEASUREMENT_SYSTEM == 0:
+        r = EARTH_RADIUS_IN_KM
+    else:
+        r = EARTH_RADIUS_IN_MILES
+
+    return round(c * r, 2)
+
+
+def nearloc_from_variable(current_lat, current_long):
     nearloc = []
 
     for location in location_data:
-        lon1, lat1, lon2, lat2 = map(radians, [current_longitude, current_latitude, location["long"], location["lat"]])
-
-        dlon = lon2 - lon1
-        dlat = lat2 - lat1
-        a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
-        c = 2 * asin(sqrt(a))
-        if RESULT_MEASUREMENT_SYSTEM == 0:
-            r = EARTH_RADIUS_IN_KM
-        else:
-            r = EARTH_RADIUS_IN_MILES
-
-        location["distance"] = round(c * r, 2)
+        location["distance"] = harversine(current_long, current_lat, location)
         if RESULT_TYPE == 0:
             nearloc.append(location)
         else:
             if location["distance"] <= MAX_RADIUS:
                 nearloc.append(location)
     nearloc = sorted(nearloc, key=lambda k: k["distance"])
-    with open('result.json','w') as file:
+    with open('result.json', 'w') as file:
         json.dump(nearloc, file)
 
     return nearloc
 
+
 def nearloc_from_xlsx(current_lat, current_long):
-    print("\nThis feature is not available yet!!\n")
-    return []
+    nearloc = []
+
+    with open('data.csv', mode='r') as csv_file:
+        location_data = csv.DictReader(csv_file)
+        for index, location in enumerate(location_data):
+            if index == 0:
+                continue
+            else:
+                location["distance"] = harversine(current_long, current_lat, location)
+                if RESULT_TYPE == 0:
+                    nearloc.append(location)
+                else:
+                    if location["distance"] <= MAX_RADIUS:
+                        nearloc.append(location)
+    nearloc = sorted(nearloc, key=lambda k: k["distance"])
+    with open('result.json', 'w') as file:
+        json.dump(nearloc, file)
+    return nearloc
 
 
 if __name__ == "__main__":
@@ -73,4 +95,3 @@ if __name__ == "__main__":
             print("\nInvalid option !\n")
     print(result)
     print("\nResult has been saved to result.json")
-    
