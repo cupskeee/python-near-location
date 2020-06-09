@@ -6,7 +6,7 @@ from config import *
 from data import location_data
 
 
-def harversine(current_long, current_lat, location):
+def haversine(current_long, current_lat, location):
     lon1, lat1, lon2, lat2 = map(radians, [current_long, current_lat, float(location["long"]), float(location["lat"])])
 
     dlon = lon2 - lon1
