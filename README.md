@@ -10,7 +10,6 @@
 [![forks][forks-shield]][forks-url]
 [![stargazers][stars-shield]][stars-url]
 [![issues][issues-shield]][issues-url]
-[![linkedIn][linkedin-shield]][linkedin-url]
 
 
 <!-- PROJECT LOGO -->
