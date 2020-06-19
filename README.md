@@ -37,12 +37,10 @@
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/badge/contributors-0-orange
-[contributors-url]: https://github.com/cupskeee/scheduled-email/graphs/contributors
+[contributors-url]: https://github.com/cupskeee/python-near-location/graphs/contributors
 [forks-shield]: https://img.shields.io/badge/forks-0-blue
-[forks-url]: https://github.com/cupskeee/scheduled-email/network/members
+[forks-url]: https://github.com/cupskeee/python-near-location/network/members
 [stars-shield]: https://img.shields.io/badge/stars-1-blue
-[stars-url]: https://github.com/cupskeee/scheduled-email/stargazers
+[stars-url]: https://github.com/cupskeee/python-near-location/stargazers
 [issues-shield]: https://img.shields.io/badge/issues-1%20open-brightgreen
-[issues-url]: https://github.com/cupskeee/scheduled-email/issues
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/in/yusuframadhan/
+[issues-url]: https://github.com/cupskeee/python-near-location/issues
