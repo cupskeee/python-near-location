@@ -24,10 +24,8 @@
   <p align="center">
   A simple great-circle distance calculation using only <b>Python</b>! (No Packages)<br/><br/>
   Calculate rough distance between points/location such as Store Branch and Map Points given their longitudes and latitudes
-
-    <br />
+<br/><br />
     <a href="https://en.wikipedia.org/wiki/Haversine_formula"><strong>More about Haversine formula »</strong></a>
-    <br />
     <br />
     <a href="https://github.com/cupskeee/python-near-location/issues">Request Feature / Report Bugs</a>
   </p>
