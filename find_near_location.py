@@ -1,3 +1,4 @@
+import os
 import csv
 import json
 from math import radians, cos, sin, asin, sqrt
@@ -49,16 +50,19 @@ def nearloc_from_xlsx(current_lat, current_long):
 
     with open('data.csv', mode='r') as csv_file:
         location_data = csv.DictReader(csv_file)
-        for index, location in enumerate(location_data):
-            if index == 0:
-                continue
+        for location in location_data:
+            location["distance"] = haversine(current_long, current_lat, location)
+            if RESULT_TYPE == 0:
+                print("'{}' is {} {} away from you.".format(location["name"],
+                                                            location["distance"],
+                                                            "mi" if RESULT_MEASUREMENT_SYSTEM else "km"))
+                nearloc.append(location)
             else:
-                location["distance"] = haversine(current_long, current_lat, location)
-                if RESULT_TYPE == 0:
+                if location["distance"] <= MAX_RADIUS:
+                    print("'{}' is {} {} away from you.".format(location["name"],
+                                                                location["distance"],
+                                                                "mi" if RESULT_MEASUREMENT_SYSTEM else "km"))
                     nearloc.append(location)
-                else:
-                    if location["distance"] <= MAX_RADIUS:
-                        nearloc.append(location)
     nearloc = sorted(nearloc, key=lambda k: k["distance"])
     with open('result.json', 'w') as file:
         json.dump(nearloc, file)
