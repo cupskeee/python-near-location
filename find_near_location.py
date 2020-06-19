@@ -13,10 +13,10 @@ def haversine(current_long, current_lat, location):
     dlat = lat2 - lat1
     a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
     c = 2 * asin(sqrt(a))
-    if RESULT_MEASUREMENT_SYSTEM == 0:
-        r = EARTH_RADIUS_IN_KM
-    else:
+    if RESULT_MEASUREMENT_SYSTEM:
         r = EARTH_RADIUS_IN_MILES
+    else:
+        r = EARTH_RADIUS_IN_KM
 
     return round(c * r, 2)
 
@@ -25,12 +25,18 @@ def nearloc_from_variable(current_lat, current_long):
     nearloc = []
 
     for location in location_data:
-        location["distance"] = harversine(current_long, current_lat, location)
-        if RESULT_TYPE == 0:
-            nearloc.append(location)
-        else:
+        location["distance"] = haversine(current_long, current_lat, location)
+        if RESULT_TYPE:
             if location["distance"] <= MAX_RADIUS:
+                print("'{}' is {} {} away from you.".format(location["name"],
+                                                            location["distance"],
+                                                            "mi" if RESULT_MEASUREMENT_SYSTEM else "km"))
                 nearloc.append(location)
+        else:
+            print("'{}' is {} {} away from you.".format(location["name"],
+                                                        location["distance"],
+                                                        "mi" if RESULT_MEASUREMENT_SYSTEM else "km"))
+            nearloc.append(location)
     nearloc = sorted(nearloc, key=lambda k: k["distance"])
     with open('result.json', 'w') as file:
         json.dump(nearloc, file)
@@ -47,7 +53,7 @@ def nearloc_from_xlsx(current_lat, current_long):
             if index == 0:
                 continue
             else:
-                location["distance"] = harversine(current_long, current_lat, location)
+                location["distance"] = haversine(current_long, current_lat, location)
                 if RESULT_TYPE == 0:
                     nearloc.append(location)
                 else:
@@ -93,5 +99,4 @@ if __name__ == "__main__":
             break
         else:
             print("\nInvalid option !\n")
-    print(result)
     print("\nResult has been saved to result.json")
