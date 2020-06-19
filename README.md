@@ -31,6 +31,34 @@
   </p>
 </p>
 
+## About the Project
+### Built With
+
+This app is created using **Python 3** only.
+
+Reference is from [Wikipedia on Haversine Formula](https://en.wikipedia.org/wiki/Haversine_formula)
+
+## Getting Started
+
+This script is to calculate the great-circle distance between inputted coordinates e.g your coordinate with customizable location data.
+
+### Prerequisites
+- Python 3 (preferably `Python 3.6.9`)
+
+that's it actually :)
+
+### Setup
+
+1. Clone the repository
+`git clone https://github.com/cupskeee/python-near-location.git`
+2. Modify your location data on the provided data source `data.py` or `data.csv`
+
+You can modify the location data on `data.py` or `data.csv` by following the default format.
+
+## Guide
+
+
+
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/badge/contributors-0-orange
